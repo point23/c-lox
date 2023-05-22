@@ -1,0 +1,18 @@
+#include "chunk.h"
+#include "common.h"
+#include "debug.h"
+
+int main(int argc, const char *argv[]) {
+    Chunk chunk;
+    chunk_init(&chunk);
+    chunk_write(&chunk, OP_RETURN);
+
+    int idx = add_constant(&chunk, 1.2);
+    chunk_write(&chunk, OP_CONSTANT);
+    chunk_write(&chunk, idx);
+
+    disassemble_chunk(&chunk, "test chunk");
+
+    chunk_free(&chunk);
+    return 0;
+}

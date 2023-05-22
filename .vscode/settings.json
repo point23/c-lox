@@ -1,0 +1,17 @@
+{
+    "files.associations": {
+        "common.h": "c",
+        "chunk.h": "c",
+        "stdlib.h": "c",
+        "utility": "cpp",
+        "xutility": "cpp",
+        "compare": "cpp",
+        "memory": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "xmemory": "cpp",
+        "xtr1common": "cpp",
+        "iterator": "cpp",
+        "debug.h": "c"
+    }
+}
