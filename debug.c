@@ -15,14 +15,16 @@ static int constant_instruction(const char *name, Chunk *chunk, int offset) {
     printf("'\n");
     return offset + 2;
 }
-// #FILE_SCOPE
+// FILE_SCOPE
 
 void disassemble_chunk(Chunk *chunk, const char *name) {
-    printf("== %s ==\n", name);
+    printf("BEGIN == %s ==\n", name);
 
     for (int offset = 0; offset < chunk->count;) {
         offset = disassemble_instruction(chunk, offset);
     }
+
+    printf("END   == %s ==\n\n", name);
 }
 
 // @Note Return value is the next offset.
@@ -43,8 +45,13 @@ int disassemble_instruction(Chunk *chunk, int offset) {
         switch (instruction) {
         case OP_RETURN:
             return simple_instruction("OP_RETURN", offset);
+
         case OP_CONSTANT:
             return constant_instruction("OP_CONSTANT", chunk, offset);
+
+        case OP_NEGATE:
+            return simple_instruction("OP_NEGATE", offset);
+
         default:
             printf("Unknown instruction %d\n", instruction);
             break;
