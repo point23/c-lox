@@ -9,7 +9,7 @@ static int simple_instruction(const char *name, int offset) {
 }
 
 static int constant_instruction(const char *name, Chunk *chunk, int offset) {
-    uint8_t constant_idx = chunk->code[offset] + 1;
+    uint8_t constant_idx = chunk->code[offset];
     printf("%-16s %4d '", name, constant_idx);
     print_value(chunk->constants.values[constant_idx]);
     printf("'\n");
@@ -27,17 +27,27 @@ void disassemble_chunk(Chunk *chunk, const char *name) {
 
 // @Note Return value is the next offset.
 int disassemble_instruction(Chunk *chunk, int offset) {
-    // Idex...
+    // Offset inside the chunk.
     printf("%04d ", offset);
 
-    uint8_t instruction = chunk->code[offset];
-    switch (instruction) {
-    case OP_RETURN:
-        return simple_instruction("OP_RETURN", offset);
-    case OP_CONSTANT:
-        return constant_instruction("OP_CONSTANT", chunk, offset);
-    default:
-        printf("Unknown instruction %d\n", instruction);
-        break;
+    { // Line information.
+        if (offset > 0 && chunk->lines[offset] == chunk->lines[offset - 1]) {
+            printf("   | ");
+        } else {
+            printf("%4d ", chunk->lines[offset]);
+        }
+    }
+
+    { // Instruction.
+        uint8_t instruction = chunk->code[offset];
+        switch (instruction) {
+        case OP_RETURN:
+            return simple_instruction("OP_RETURN", offset);
+        case OP_CONSTANT:
+            return constant_instruction("OP_CONSTANT", chunk, offset);
+        default:
+            printf("Unknown instruction %d\n", instruction);
+            break;
+        }
     }
 }
