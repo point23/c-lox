@@ -6,6 +6,13 @@
 
 typedef enum {
     OP_CONSTANT,
+    // Binary Operators
+    OP_ADD,
+    OP_SUBTRACT,
+    OP_MULTIPLY,
+    OP_DIVIDE,
+
+    // Unary Operators
     OP_NEGATE,
     OP_RETURN,
 } OpCode;
