@@ -12,6 +12,8 @@
         "xmemory": "cpp",
         "xtr1common": "cpp",
         "iterator": "cpp",
-        "debug.h": "c"
+        "debug.h": "c",
+        "compiler.h": "c",
+        "scanner.h": "c"
     }
 }
